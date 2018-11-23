@@ -84,7 +84,7 @@ public class DialogClienteFF extends JDialog implements ActionListener
 		getContentPane().setLayout(null);
 
 		panel = new JPanel();
-		panel.setBounds(0, 0, 602, 292);
+		panel.setBounds(10, 0, 602, 292);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
