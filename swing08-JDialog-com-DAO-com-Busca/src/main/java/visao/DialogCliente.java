@@ -28,9 +28,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import servico.ClienteService;
 import excecao.ClienteNaoEncontradoException;
 
-public class DialogCliente extends JDialog implements ActionListener 
+public class DialogCliente extends JDialog //implements ActionListener 
 {
-	private static final long serialVersionUID = 1L;
+	/*private static final long serialVersionUID = 1L;
 
 	private static ClienteService clienteService;
 	
@@ -437,5 +437,5 @@ public class DialogCliente extends JDialog implements ActionListener
 		removerButton.setEnabled(true);
 		cancelarButton.setEnabled(false);
 		buscarButton.setEnabled(true);
-	}
+	}*/
 }

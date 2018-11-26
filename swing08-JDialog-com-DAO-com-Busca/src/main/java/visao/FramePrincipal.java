@@ -20,6 +20,7 @@ public class FramePrincipal extends JFrame
 	private JPanel panel;
 	private JFrame frame;
 	private JMenuItem mntmClientFf;
+	private JMenuItem mntmConta;
 	
 	public FramePrincipal() 
 	{
@@ -61,6 +62,16 @@ public class FramePrincipal extends JFrame
 				DialogClienteFF dialogClienteFF = new DialogClienteFF(frame);
 				dialogClienteFF.novo();
 				dialogClienteFF.setVisible(true);
+			}
+		});
+		
+		mntmConta = new JMenuItem("Conta");
+		mnCadastrar.add(mntmConta);
+		mntmConta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DialogConta dialogConta = new DialogConta(frame);
+				dialogConta.novo();
+				dialogConta.setVisible(true);
 			}
 		});
 		

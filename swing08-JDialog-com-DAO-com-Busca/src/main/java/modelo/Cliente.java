@@ -13,17 +13,14 @@ public class Cliente
 {
 	private Long numero;
 	private String nome;
-	private String sexo;
-	private int idade;
-	private boolean newsLetter;
+	private String dataNasc;
 	
-	public Cliente(String nome, String sexo, int idade, boolean newsLetter) 
+	public Cliente(String nome, String dataNasc) 
 	{
 		super();
 		this.nome = nome;
-		this.sexo = sexo;
-		this.idade = idade;
-		this.newsLetter = newsLetter;
+		this.dataNasc = dataNasc;
+		
 	}
 
 	public Cliente() 
@@ -31,7 +28,7 @@ public class Cliente
 	}
 
 	public String toString()
-	{	return "Numero = " + numero + " nome = " + nome + " sexo = " + sexo + " idade = " + idade + " newsLetter = " + newsLetter;
+	{	return "Numero = " + numero + " nome = " + nome + " data nascimento = " + dataNasc;
 	}
 	
 	@Id
@@ -54,28 +51,13 @@ public class Cliente
 	{	this.nome = nome;
 	}
 	
-	public String getSexo() 
-	{	return sexo;
+	public String getDataNasc() 
+	{	return dataNasc;
 	}
 	
-	public void setSexo(String sexo) 
-	{	this.sexo = sexo;
-	}
-	
-	public int getIdade() 
-	{	return idade;
-	}
-	
-	public void setIdade(int idade) 
-	{	this.idade = idade;
-	}
-	
-	@Column(name="NEWS_LETTER")
-	public boolean isNewsLetter() 
-	{	return newsLetter;
-	}
-	
-	public void setNewsLetter(boolean newsLetter) 
-	{	this.newsLetter = newsLetter;
+	public void setDataNasc(String dataNasc) 
+	{	this.dataNasc = dataNasc;
 	}
 }
+	
+	

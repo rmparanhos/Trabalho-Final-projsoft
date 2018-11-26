@@ -52,26 +52,25 @@ public class DialogClienteFF extends JDialog implements ActionListener
 	private JButton buscarButton;
 	
 	private JTextField nomeTextField;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
+	
 	private JLabel nomeMensagem;
-	private JLabel sexoMensagem;
-	private JLabel idadeMensagem;
-
+	
 	private JPanel panel;
 	
 	private Cliente umCliente;
 	private JTextField dataNascTextField;
+	private JLabel dataNascMensagem;
 	
 	public void designaClienteAFrame(Cliente umCliente)
 	{
 		this.umCliente = umCliente;
 		
 		nomeTextField.setText(umCliente.getNome());
-		
+		//dataNascTextField.setText(umCliente.getNasc());
 		
 		nomeMensagem.setText("");
-		sexoMensagem.setText("");
-		idadeMensagem.setText("");
+		dataNascMensagem.setText("");
+		
 	}
 	
 	public DialogClienteFF(JFrame frame)
@@ -88,14 +87,14 @@ public class DialogClienteFF extends JDialog implements ActionListener
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel cadastrarLabel = new JLabel("Cadastro de Clientes");
-		cadastrarLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		cadastrarLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		cadastrarLabel.setBounds(189, 21, 190, 26);
-		panel.add(cadastrarLabel);
+		JLabel cadastrarClientesLabel = new JLabel("Cadastro de Clientes");
+		cadastrarClientesLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		cadastrarClientesLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		cadastrarClientesLabel.setBounds(189, 21, 190, 26);
+		panel.add(cadastrarClientesLabel);
 		
 		JLabel nomeLabel = new JLabel("Nome");
-		nomeLabel.setBounds(62, 78, 46, 14);
+		nomeLabel.setBounds(95, 78, 45, 14);
 		panel.add(nomeLabel);
 		
 		nomeTextField = new JTextField();
@@ -105,12 +104,13 @@ public class DialogClienteFF extends JDialog implements ActionListener
 		nomeTextField.setColumns(50);
 		nomeTextField.setBackground(SystemColor.window);
 		
-		JLabel lblDataNascimento = new JLabel("Data Nascimento");
-		lblDataNascimento.setBounds(10, 113, 173, 20);
-		panel.add(lblDataNascimento);
+		JLabel dataNascLabel = new JLabel("Data Nascimento");
+		dataNascLabel.setBounds(40, 113, 100, 20);
+		panel.add(dataNascLabel);
 		
 		dataNascTextField = new JTextField();
-		dataNascTextField.setBounds(20, 145, 241, 20);
+		dataNascLabel.setLabelFor(dataNascTextField);
+		dataNascTextField.setBounds(138, 113, 278, 20);
 		panel.add(dataNascTextField);
 		dataNascTextField.setColumns(10);
 		dataNascTextField.setBackground(SystemColor.window);
@@ -123,38 +123,44 @@ public class DialogClienteFF extends JDialog implements ActionListener
 		
 		
 		novoButton = new JButton("Novo");
-		novoButton.setBounds(452, 50, 96, 23);
+		novoButton.setBounds(451, 52, 96, 23);
 		panel.add(novoButton);
 		novoButton.addActionListener(this);
 
 		cadastrarButton = new JButton("Cadastrar");
-		cadastrarButton.setBounds(473, 112, 96, 23);
+		cadastrarButton.setBounds(451, 122, 96, 23);
 		panel.add(cadastrarButton);
 		cadastrarButton.addActionListener(this);
 		
 		editarButton = new JButton("Editar");
-		editarButton.setBounds(426, 83, 96, 23);
+		editarButton.setBounds(451, 88, 96, 23);
 		panel.add(editarButton);
 		editarButton.addActionListener(this);
 		
 		alterarButton = new JButton("Alterar");
-		alterarButton.setBounds(413, 152, 96, 23);
+		alterarButton.setBounds(451, 156, 96, 23);
 		panel.add(alterarButton);
 		alterarButton.addActionListener(this);
 
 		removerButton = new JButton("Remover");
-		removerButton.setBounds(473, 184, 96, 23);
+		removerButton.setBounds(451, 190, 96, 23);
 		panel.add(removerButton);
 		removerButton.addActionListener(this);
 
 		cancelarButton = new JButton("Cancelar");
-		cancelarButton.setBounds(378, 212, 96, 23);
+		cancelarButton.setBounds(451, 224, 96, 23);
 		panel.add(cancelarButton);
 		cancelarButton.addActionListener(this);
 
 		buscarButton = new JButton("Buscar");
-		buscarButton.setBounds(473, 246, 96, 23);
+		buscarButton.setBounds(451, 258, 96, 23);
 		panel.add(buscarButton);
+		
+		dataNascMensagem = new JLabel("");
+		dataNascMensagem.setForeground(Color.RED);
+		dataNascMensagem.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		dataNascMensagem.setBounds(138, 131, 241, 14);
+		panel.add(dataNascMensagem);
 		
 		
 		buscarButton.addActionListener(this);
@@ -175,7 +181,7 @@ public class DialogClienteFF extends JDialog implements ActionListener
 			{	
 				umCliente = new Cliente();
 				umCliente.setNome(nomeTextField.getText().toUpperCase());
-			
+				umCliente.setDataNasc(dataNascTextField.getText().toUpperCase());
 
 				clienteService.inclui(umCliente);
 				
@@ -196,7 +202,7 @@ public class DialogClienteFF extends JDialog implements ActionListener
 			if(!deuErro)
 			{	
 				umCliente.setNome(nomeTextField.getText().toUpperCase());
-			
+				umCliente.setDataNasc(dataNascTextField.getText());
 
 				try 
 				{
@@ -270,6 +276,16 @@ public class DialogClienteFF extends JDialog implements ActionListener
 		}
 		else
 		{	nomeMensagem.setText("");
+		
+		}
+		
+		if (dataNascTextField.getText().trim().length() == 0)
+		{	deuErro = true;
+			dataNascMensagem.setText("Campo de preenchimento obrigatório");
+		}
+		else
+		{	dataNascMensagem.setText("");
+		
 		}
 		
 		
@@ -280,12 +296,11 @@ public class DialogClienteFF extends JDialog implements ActionListener
 	public void novo()
 	{
 		nomeTextField.setEnabled(true);
-	
-		
+		dataNascTextField.setEnabled(true);
+				
 		nomeTextField.setText("");
-		buttonGroup.clearSelection();
+		dataNascTextField.setText("");
 		
-
 		novoButton.setEnabled(false);
 		cadastrarButton.setEnabled(true);
 		editarButton.setEnabled(false);
@@ -298,7 +313,7 @@ public class DialogClienteFF extends JDialog implements ActionListener
 	public void salvo()
 	{
 		nomeTextField.setEnabled(false);
-	
+		dataNascTextField.setEnabled(false);
 
 		novoButton.setEnabled(true);
 		cadastrarButton.setEnabled(false);
@@ -312,7 +327,7 @@ public class DialogClienteFF extends JDialog implements ActionListener
 	public void editavel()
 	{
 		nomeTextField.setEnabled(true);
-	
+		dataNascTextField.setEnabled(true);
 
 		novoButton.setEnabled(false);
 		cadastrarButton.setEnabled(false);
@@ -326,7 +341,7 @@ public class DialogClienteFF extends JDialog implements ActionListener
 	public void removido()
 	{
 		nomeTextField.setEnabled(false);
-		
+		dataNascTextField.setEnabled(false);
 
 		novoButton.setEnabled(true);
 		cadastrarButton.setEnabled(false);
@@ -340,7 +355,7 @@ public class DialogClienteFF extends JDialog implements ActionListener
 	public void cancelado()
 	{
 		nomeTextField.setEnabled(false);
-		
+		dataNascTextField.setEnabled(false);
 
 		novoButton.setEnabled(true);
 		cadastrarButton.setEnabled(false);
