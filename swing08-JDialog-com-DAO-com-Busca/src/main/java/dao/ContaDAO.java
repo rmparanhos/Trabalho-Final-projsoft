@@ -2,9 +2,8 @@ package dao;
 
 import java.util.List;
 
-import modelo.Cliente;
-import modelo.Conta;
 import excecao.ObjetoNaoEncontradoException;
+import modelo.Conta;
 
 public interface ContaDAO
 {	

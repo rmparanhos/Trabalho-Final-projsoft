@@ -25,7 +25,7 @@ public class Conta
 		super();
 		this.numero = numero;
 		this.dataAbr = dataAbr;
-		this.cliente =cliente;
+		this.cliente = cliente;
 		
 	}
 
@@ -71,7 +71,7 @@ public class Conta
 	{	return cliente;
 	}
 	
-	public void setClient(Cliente cliente) 
+	public void setCliente(Cliente cliente) 
 	{	this.cliente = cliente;
 	}
 }

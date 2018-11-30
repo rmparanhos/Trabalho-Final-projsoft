@@ -6,11 +6,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 
-import modelo.Cliente;
+import modelo.Conta;
 
 import org.springframework.stereotype.Repository;
 
-import dao.ClienteDAO;
 import dao.ContaDAO;
 import excecao.ObjetoNaoEncontradoException;
 
@@ -20,94 +19,94 @@ public class ContaDAOImpl implements ContaDAO
 	@PersistenceContext
 	private EntityManager em;
 
-    public long inclui(Cliente umCliente) 
+    public long inclui(Conta umaConta) 
 	{	
-    	em.persist(umCliente);
-		return umCliente.getNumero();
+    	em.persist(umaConta);
+		return umaConta.getId();
 	}
 
-	public void altera(Cliente umCliente) 
+	public void altera(Conta umaConta) 
 		throws ObjetoNaoEncontradoException 
 	{	
-		Cliente cliente = em.find(Cliente.class, umCliente.getNumero(), LockModeType.PESSIMISTIC_WRITE);
+		Conta conta = em.find(Conta.class, umaConta.getId(), LockModeType.PESSIMISTIC_WRITE);
 		
-		if(cliente == null)
+		if(conta == null)
 		{	throw new ObjetoNaoEncontradoException();
 		}
 
-		em.merge(umCliente);
+		em.merge(umaConta);
 	}
 
     public void exclui(long id) 
 		throws ObjetoNaoEncontradoException 
 	{	
-		Cliente cliente = em.find(Cliente.class, id, LockModeType.PESSIMISTIC_WRITE);
+		Conta conta = em.find(Conta.class, id, LockModeType.PESSIMISTIC_WRITE);
 		
-		if(cliente == null)
+		if(conta == null)
 		{	throw new ObjetoNaoEncontradoException();
 		}
 		
-		em.remove(cliente);
+		em.remove(conta);
 	}
 
-    public Cliente recuperaUmCliente(long numero) 
+    public Conta recuperaUmaConta(long id) 
 		throws ObjetoNaoEncontradoException 
 	{	
-		Cliente umCliente = (Cliente)em
-			.find(Cliente.class, new Long(numero));
+		Conta umaConta = (Conta)em
+			.find(Conta.class, new Long(id));
 			
-		if (umCliente == null)
+		if (umaConta == null)
 		{	throw new ObjetoNaoEncontradoException();
 		}
 
-		return umCliente;
+		return umaConta;
 	}
 
-	public Cliente recuperaUmClienteComLock(long numero) 
+	public Conta recuperaUmaContaComLock(long id) 
 		throws ObjetoNaoEncontradoException 
 	{	
-		Cliente umCliente = (Cliente)em
-			.find(Cliente.class, new Long(numero), LockModeType.PESSIMISTIC_WRITE);
+		Conta umaConta = (Conta)em
+			.find(Conta.class, new Long(id), LockModeType.PESSIMISTIC_WRITE);
 
-		if (umCliente == null)
+		if (umaConta == null)
 		{	throw new ObjetoNaoEncontradoException();
 		}
 
-		return umCliente;
+		return umaConta;
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Cliente> recuperaClientes()
+	public List<Conta> recuperaContas()
 	{	
-		List<Cliente> clientes = em
-			.createQuery("select c from Cliente c " +
+		List<Conta> contas = em
+			.createQuery("select c from Conta c " +
 					     "order by c.id asc")
 			.getResultList();
 
-		return clientes;
+		return contas;
 	}
 
-	public long recuperaQtdPeloNome(String nome) 
+	public long recuperaQtdPeloNumero(String numero) 
 	{	
-		long qtd = (Long) em.createQuery("select count(c) from Cliente c where c.nome like :nome")
-						    .setParameter("nome", nome.toUpperCase())
+		long qtd = (Long) em.createQuery("select count(c) from Conta c where c.numero like :numero")
+						    .setParameter("numero", numero)
 							.getSingleResult();
 		return qtd;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Cliente> recuperaPeloNome(String nome, 
+	public List<Conta> recuperaPeloNumero(String numero, 
             							  int deslocamento, 
             							  int linhasPorPagina)
 	{	
-		List<Cliente> clientes = em
-			.createQuery("select c from Cliente c "
-					   + "where c.nome like :nome order by c.nome asc")
-			.setParameter("nome", nome.toUpperCase())
+		List<Conta> contas = em
+			.createQuery("select c from Conta c "
+					   + "where c.numero like :numero order by c.numero asc")
+			.setParameter("numero", numero)
 			.setFirstResult(deslocamento)
 			.setMaxResults(linhasPorPagina)
 			.getResultList();
 
-		return clientes;
+		return contas;
 	}
 }

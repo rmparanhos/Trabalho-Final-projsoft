@@ -2,14 +2,13 @@ package servico;
 
 import java.util.List;
 
-import modelo.Cliente;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import dao.ClienteDAO;
-import excecao.ClienteNaoEncontradoException;
+import dao.ContaDAO;
+import excecao.ContaNaoEncontradaException;
 import excecao.ObjetoNaoEncontradoException;
+import modelo.Conta;
 
 //@Service
 public class ContaService
@@ -18,56 +17,56 @@ public class ContaService
 	private ContaDAO contaDAO;
 	
 	@Transactional
-	public long inclui(Cliente umCliente) 
-	{	return clienteDAO.inclui(umCliente);
+	public long inclui(Conta umCliente) 
+	{	return contaDAO.inclui(umCliente);
 	}
 
 	@Transactional
-	public void altera(Cliente umCliente)
-		throws ClienteNaoEncontradoException
+	public void altera(Conta umaConta)
+		throws ContaNaoEncontradaException
 	{	try
-		{	clienteDAO.altera(umCliente);
+		{	contaDAO.altera(umaConta);
 		} 
 		catch(ObjetoNaoEncontradoException e)
-		{	throw new ClienteNaoEncontradoException("Cliente não encontrado");
+		{	throw new ContaNaoEncontradaException("Conta não encontrada");
 		}
 	}
 
 	@Transactional
-	public void exclui(Cliente umCliente) 
-		throws ClienteNaoEncontradoException
+	public void exclui(Conta umaConta) 
+		throws ContaNaoEncontradaException
 	{	try
 		{	
-			clienteDAO.exclui(umCliente.getNumero());
+			contaDAO.exclui(umaConta.getId());
 		} 
 		catch(ObjetoNaoEncontradoException e)
-		{	throw new ClienteNaoEncontradoException("Cliente não encontrado");
+		{	throw new ContaNaoEncontradaException("Conta não encontrada");
 		}
 	}
 
-	public Cliente recuperaUmCliente(long numero) 
-		throws ClienteNaoEncontradoException
+	public Conta recuperaUmaConta(long id) 
+		throws ContaNaoEncontradaException
 	{	try
-		{	return clienteDAO.recuperaUmCliente(numero);
+		{	return contaDAO.recuperaUmaConta(id);
 		} 
 		catch(ObjetoNaoEncontradoException e)
-		{	throw new ClienteNaoEncontradoException("Cliente não encontrado");
+		{	throw new ContaNaoEncontradaException("Conta não encontrada");
 		}
 	}
 
-	public List<Cliente> recuperaClientes()
-	{	return clienteDAO.recuperaClientes();
+	public List<Conta> recuperaContas()
+	{	return contaDAO.recuperaContas();
 	}
 
-	public long recuperaQtdPeloNome(String nome) 
+	public long recuperaQtdPeloNumero(String numero) 
 	{	
-		return clienteDAO.recuperaQtdPeloNome(nome + "%");
+		return contaDAO.recuperaQtdPeloNumero(numero + "%");
 	}
 	
-	public List<Cliente> recuperaPeloNome(String nome, int deslocamento, int linhasPorPagina) 
+	public List<Conta> recuperaPeloNumero(String numero, int deslocamento, int linhasPorPagina) 
 	{	
-		List<Cliente> clientes = clienteDAO.recuperaPeloNome(nome + "%", deslocamento, linhasPorPagina);
+		List<Conta> contas = contaDAO.recuperaPeloNumero(numero + "%", deslocamento, linhasPorPagina);
 
-		return clientes;
+		return contas;
 	}
 }
