@@ -256,7 +256,8 @@ public class DialogClienteFF extends JDialog implements ActionListener
 		}
 		else if(obj == buscarButton)
 		{	
-			
+			DialogTabelaClienteFF dialog = new DialogTabelaClienteFF(this);
+			dialog.setVisible(true);
 		}
 	}
 	

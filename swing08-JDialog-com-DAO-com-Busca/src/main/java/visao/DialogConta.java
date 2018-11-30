@@ -309,6 +309,11 @@ public class DialogConta extends JDialog implements ActionListener
 		{	
 			
 		}
+		else if(obj == buscarClienteButton)
+		{	
+			DialogTabelaClienteFF dialog = new DialogTabelaClienteFF(this);
+			dialog.setVisible(true);
+		}
 	}
 	
 	private boolean validaConta()
