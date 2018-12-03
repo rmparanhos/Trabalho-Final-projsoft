@@ -30,9 +30,9 @@ public class ButtonColumn extends AbstractCellEditor implements
 	private static final long serialVersionUID = 1L;
 	private JTable table;
 	private JButton button;
-	private DialogTabelaCliente dialogTabelaCliente;
-	private DialogCliente dialogCliente;
-	
+	private DialogTabelaClienteFF dialogTabelaCliente;
+	private DialogClienteFF dialogCliente;
+	private DialogConta dialogConta;
 	private static ClienteService clienteService;
 	
     static
@@ -44,8 +44,8 @@ public class ButtonColumn extends AbstractCellEditor implements
     }
 
 	public ButtonColumn(JTable table, int coluna, 
-			            DialogTabelaCliente dialogTabelaCliente, 
-			            DialogCliente dialogCliente)
+			            DialogTabelaClienteFF dialogTabelaCliente, 
+			            DialogClienteFF dialogCliente)
 	{
 		//super();
 		this.table = table;
@@ -66,6 +66,31 @@ public class ButtonColumn extends AbstractCellEditor implements
 		tableColumnModel.getColumn(coluna).setCellEditor(this);
 			// getTableCellEditorComponent()
 			// getCellEditorValue()
+	}
+	
+	public ButtonColumn(JTable table, int coluna, 
+            DialogTabelaClienteFF dialogTabelaCliente, 
+            DialogConta dialogConta)
+		{
+		//super();
+		this.table = table;
+		this.dialogTabelaCliente = dialogTabelaCliente;
+		this.dialogConta = dialogConta;
+		
+		button = new JButton();
+		button.setText("Escolher");
+		button.addActionListener(this);
+		
+		TableColumnModel tableColumnModel = table.getColumnModel();
+		
+		// Designa um renderizador (o objeto corrente) para o botão
+		tableColumnModel.getColumn(coluna).setCellRenderer(this);
+		// getTableCellRendererComponent()
+		
+		// Designa um editor (o objeto corrente) para o botão
+		tableColumnModel.getColumn(coluna).setCellEditor(this);
+		// getTableCellEditorComponent()
+		// getCellEditorValue()
 	}
 	
 	// Esse método retorna o botão que será exibido - RESPONSÁVEL PELA RENDERIZAÇÃO DO BOTÃO (APARÊNCIA)
@@ -110,11 +135,20 @@ public class ButtonColumn extends AbstractCellEditor implements
 	{
 		try
 		{
-			Cliente umCliente = clienteService.recuperaUmCliente((Long)table
-				.getValueAt(table.getSelectedRow(), 0));
-			dialogCliente.designaClienteAFrame(umCliente);
-			dialogCliente.editavel();
-			dialogTabelaCliente.dispose();
+			if(dialogConta == null){
+				Cliente umCliente = clienteService.recuperaUmCliente((Long)table
+					.getValueAt(table.getSelectedRow(), 0));
+				dialogCliente.designaClienteAFrame(umCliente);
+				dialogCliente.editavel();
+				dialogTabelaCliente.dispose();
+			}
+			else if(dialogCliente == null){
+				Cliente umCliente = clienteService.recuperaUmCliente((Long)table
+						.getValueAt(table.getSelectedRow(), 0));
+					dialogConta.designaClienteAFrame(umCliente);
+					//dialogConta.editavel();
+					dialogTabelaCliente.dispose();
+			}
 		} 
 		catch (ClienteNaoEncontradoException e1)
 		{ 

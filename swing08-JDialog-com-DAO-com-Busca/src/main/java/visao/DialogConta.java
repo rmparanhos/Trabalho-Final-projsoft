@@ -21,6 +21,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import excecao.ClienteNaoEncontradoException;
 import excecao.ContaNaoEncontradaException;
+import modelo.Cliente;
 import modelo.Conta;
 import servico.ClienteService;
 import servico.ContaService;
@@ -58,6 +59,7 @@ public class DialogConta extends JDialog implements ActionListener
 	private JPanel panel;
 	
 	private Conta umaConta;
+	private Cliente umCliente;
 	private JTextField dataAberturaTextField;
 	private JTextField clienteTextField;
 	private JButton cancelarButton;
@@ -74,6 +76,17 @@ public class DialogConta extends JDialog implements ActionListener
 		clienteMensagem.setText("");
 	}
 	
+	public void designaClienteAFrame(Cliente umCliente)
+	{
+		this.umCliente = umCliente;
+		
+		numeroTextField.setText("");
+		dataAberturaTextField.setText("");
+		clienteTextField.setText(umCliente.getNome());
+		
+		this.novo();
+		
+	}
 	public DialogConta(JFrame frame)
 	{
 		super(frame);
@@ -207,9 +220,12 @@ public class DialogConta extends JDialog implements ActionListener
 				umaConta.setDataAbr(dataAberturaTextField.getText());
 				try
 				{
-				umaConta.setCliente(clienteService.recuperaUmCliente(Long.parseLong(clienteTextField.getText())));
+				//umaConta.setCliente(clienteService.recuperaUmCliente(Long.parseLong(clienteTextField.getText())));
+				System.out.println(umCliente);	
+				umaConta.setCliente(umCliente);
 				}
-				catch(ClienteNaoEncontradoException e1)
+				//catch(ClienteNaoEncontradoException e1)
+				catch(Exception e1)
 				{
 					novo();
 					
@@ -352,12 +368,12 @@ public class DialogConta extends JDialog implements ActionListener
 	{
 		numeroTextField.setEnabled(true);
 		dataAberturaTextField.setEnabled(true);
-		clienteTextField.setEnabled(true);
+		clienteTextField.setEnabled(false);
 		
 		
 		numeroTextField.setText("");
 		dataAberturaTextField.setText("");
-		clienteTextField.setText("");
+		
 				
 
 		buscarClienteButton.setEnabled(true);
@@ -390,7 +406,7 @@ public class DialogConta extends JDialog implements ActionListener
 	{
 		numeroTextField.setEnabled(true);
 		dataAberturaTextField.setEnabled(true);
-		clienteTextField.setEnabled(true);
+		clienteTextField.setEnabled(false);
 		
 		novoButton.setEnabled(false);
 		cadastrarButton.setEnabled(false);

@@ -21,6 +21,7 @@ public class ClienteModelFF extends AbstractTableModel
 	public static final int COLUNA_NUMERO = 0;
 	public static final int COLUNA_NOME = 1;
 	public static final int COLUNA_DATA_NASC = 2;
+	public static final int COLUNA_ACAO = 3;
 	
     private final static int NUMERO_DE_LINHAS_POR_PAGINA = 6;
 	
@@ -36,6 +37,7 @@ public class ClienteModelFF extends AbstractTableModel
 
     private Map<Integer, Cliente> cache;
     private int rowIndexAnterior = 0;
+    
     private Integer qtd;
     private String nomeCliente;
     
@@ -55,12 +57,13 @@ public class ClienteModelFF extends AbstractTableModel
 		if(c == COLUNA_NUMERO) return "Número";
 		if(c == COLUNA_NOME) return "Nome";
 		if(c == COLUNA_DATA_NASC) return "Data Nascimento";
+		if(c == COLUNA_ACAO) return "Ação";
 		return null;
 	}
 	
 	@Override
 	public int getColumnCount() {
-		return 3;
+		return 4;
 	}
 
 	@Override
@@ -150,7 +153,7 @@ public class ClienteModelFF extends AbstractTableModel
 		if(c == COLUNA_NUMERO) classe = Integer.class;
 		if(c == COLUNA_NOME) classe = String.class;
 		if(c == COLUNA_DATA_NASC) classe = String.class;
-		
+		if(c == COLUNA_ACAO) classe = ButtonColumn.class;
 		return classe;
 	}
 	
@@ -164,9 +167,13 @@ public class ClienteModelFF extends AbstractTableModel
 	public void setValueAt(Object obj, int r, int c) 
 	{
 		Cliente umCliente = cache.get(r);
-
 		if(c == COLUNA_NOME) umCliente.setNome((String)obj);
 		if(c == COLUNA_DATA_NASC) umCliente.setDataNasc((String)obj);
-		
+		try 
+		{	clienteService.altera(umCliente);
+		} 
+		catch (ClienteNaoEncontradoException e) 
+		{	e.printStackTrace();
+		}
 	}
 }

@@ -147,14 +147,19 @@ public class DialogTabelaClienteFF extends JDialog implements ActionListener
 		// E sempre que um botão é clicado é executado o método getTableCellEditorComponent()
 		// que retorna o botão que foi clicado para que o listener deste botão possa ser executado.
 		//new ButtonColumn(table, 5, this, dialogCliente); //Parametros na ordem ==> Tabela, número da coluna onde está o botão, this da janela de busca, janela anterior a janela de busca.
-
+		if(dialogConta == null){
+			new ButtonColumn(table, 3, this, dialogCliente);
+		}
+		else if(dialogCliente == null){
+			new ButtonColumn(table, 3, this, dialogConta);
+		}
 		// Designa um valor preferido para a coluna. Se ele for menor
 		// ou maior do que o máximo possível, ele será ajustado.
 		// columnModel.getColumn(0).setPreferredWidth(50);
-		columnModel.getColumn(0).setMinWidth(0);
-		columnModel.getColumn(0).setMaxWidth(0);
+		columnModel.getColumn(0).setPreferredWidth(30);
 		columnModel.getColumn(1).setPreferredWidth(200);
 		columnModel.getColumn(2).setPreferredWidth(30);
+		columnModel.getColumn(3).setPreferredWidth(30);
 		
 		scrollPane.setVisible(true);
 	}

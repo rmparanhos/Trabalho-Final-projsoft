@@ -173,7 +173,7 @@ public class DialogClienteFF extends JDialog implements ActionListener
 			if(!deuErro)
 			{	
 				umCliente = new Cliente();
-				umCliente.setNome(nomeTextField.getText().toUpperCase());
+				umCliente.setNome(nomeTextField.getText());
 				umCliente.setDataNasc(dataNascTextField.getText().toUpperCase());
 
 				clienteService.inclui(umCliente);
@@ -194,7 +194,7 @@ public class DialogClienteFF extends JDialog implements ActionListener
 			
 			if(!deuErro)
 			{	
-				umCliente.setNome(nomeTextField.getText().toUpperCase());
+				umCliente.setNome(nomeTextField.getText());
 				umCliente.setDataNasc(dataNascTextField.getText());
 
 				try 
