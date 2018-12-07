@@ -1,21 +1,27 @@
 package dao.impl;
-
-import java.util.List;
-
+                        
+import java.util.List; 
+						
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 
 import modelo.Cliente;
 
+
 import org.springframework.stereotype.Repository;
 
 import dao.ClienteDAO;
+
 import excecao.ObjetoNaoEncontradoException;
 
 @Repository
-public class ClienteDAOImpl implements ClienteDAO
+public class ClienteDAOImpl extends JPADaoGenerico<Cliente, Long> implements ClienteDAO 
 {	
+    public ClienteDAOImpl()
+    { 	super(Cliente.class); 
+    }
+	/*
 	@PersistenceContext
 	private EntityManager em;
 
@@ -108,5 +114,23 @@ public class ClienteDAOImpl implements ClienteDAO
 			.getResultList();
 
 		return clientes;
+	}*/
+
+	@Override
+	public Cliente recuperaUmCliente(long numero) throws ObjetoNaoEncontradoException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Cliente> recuperaListaDeClientes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Cliente recuperaPrimeiroCliente() throws ObjetoNaoEncontradoException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
