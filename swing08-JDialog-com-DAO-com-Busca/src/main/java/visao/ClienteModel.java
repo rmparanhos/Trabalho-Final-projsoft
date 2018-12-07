@@ -139,7 +139,7 @@ public class ClienteModel extends AbstractTableModel
 		rowIndexAnterior = rowIndex;
         
         Cliente cliente = cache.get(rowIndex);
-
+/*
 		if(columnIndex == COLUNA_NUMERO)
 			return cliente.getNumero();
 		else if (columnIndex == COLUNA_NOME)
@@ -150,7 +150,7 @@ public class ClienteModel extends AbstractTableModel
 			return idades[cliente.getIdade()];
 		else if (columnIndex == COLUNA_NEWS_LETTER)
 			return cliente.isNewsLetter();
-		else
+		else*/
 			return null;
 	}
 	
@@ -181,10 +181,10 @@ public class ClienteModel extends AbstractTableModel
 		Cliente umCliente = cache.get(r);
 
 		if(c == COLUNA_NOME) umCliente.setNome((String)obj);
-		if(c == COLUNA_SEXO) umCliente.setSexo((String)obj);
+		//if(c == COLUNA_SEXO) umCliente.setSexo((String)obj);
 
 		if(c == COLUNA_IDADE)
-		{
+		{/*
 			if(((String)obj).equals("até 30 anos"))
 				umCliente.setIdade(1);
 			else if(((String)obj).equals("de 31 a 40 anos"))
@@ -193,9 +193,10 @@ public class ClienteModel extends AbstractTableModel
 				umCliente.setIdade(3);
 			else if(((String)obj).equals("acima de 50 anos"))
 				umCliente.setIdade(4);
+				*/
 		}
 		
-		if(c == COLUNA_NEWS_LETTER) umCliente.setNewsLetter((Boolean)obj);
+		//if(c == COLUNA_NEWS_LETTER) umCliente.setNewsLetter((Boolean)obj);
 
 		try 
 		{	clienteService.altera(umCliente);

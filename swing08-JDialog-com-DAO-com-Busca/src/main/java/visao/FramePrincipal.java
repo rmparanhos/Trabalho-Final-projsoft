@@ -35,7 +35,7 @@ public class FramePrincipal extends JFrame
 	
 		frame = this;
 		
-		menuItemCliente = new JMenuItem("Cliente");
+		/*menuItemCliente = new JMenuItem("Cliente");
 		menuItemCliente.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.ALT_MASK)); // Diz a combinação necessaria para chamar os action listeners
 		menuItemCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -44,7 +44,7 @@ public class FramePrincipal extends JFrame
 				dialogCliente.setVisible(true);
 			}
 		});
-		mnCadastrar.add(menuItemCliente);
+		mnCadastrar.add(menuItemCliente);*/
 		
 		menuItemSair = new JMenuItem("Sair");
 		menuItemSair.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.ALT_MASK)); // Diz a combinação necessaria para chamar os action listeners

@@ -109,7 +109,7 @@ public class DialogTabelaCliente extends JDialog implements ActionListener
 		// que retorna o botão que deve ser renderizado.
 		// E sempre que um botão é clicado é executado o método getTableCellEditorComponent()
 		// que retorna o botão que foi clicado para que o listener deste botão possa ser executado.
-		new ButtonColumn(table, 5, this, dialogCliente); //Parametros na ordem ==> Tabela, número da coluna onde está o botão, this da janela de busca, janela anterior a janela de busca.
+		//new ButtonColumn(table, 5, this, dialogCliente); //Parametros na ordem ==> Tabela, número da coluna onde está o botão, this da janela de busca, janela anterior a janela de busca.
 
         // Designa um novo editor para a coluna da tabela
         // Este novo editor é um ComboBox
