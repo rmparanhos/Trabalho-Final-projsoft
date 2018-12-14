@@ -10,9 +10,29 @@
              http://www.springframework.org/schema/tx
              http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">      
 
-	<bean id="clienteService"   class="servico.ClienteService" />
+<!--<bean id="clienteService"   class="servico.ClienteService" />
+
+	<bean id="lanceAppService" class="service.LanceAppService">
+        <property name="produtoDAO" ref="produtoDAOImpl" />
+        <property name="lanceDAO" ref="lanceDAOImpl" />
+	</bean>	
 	
+	<bean id="lanceDAOImpl" class="dao.controle.FabricaDeDao" factory-method="getDao">
+		<constructor-arg value="dao.impl.LanceDAOImpl" />
+    </bean>
+ -->
 	<bean id="contaService"   class="servico.ContaService" />
+		
+	<bean id="clienteService" class="servico.ClienteService">
+        <property name="clienteDAO" ref="clienteDAOImpl" />
+	</bean>
+
+
+	<bean id="clienteDAOImpl" class="dao.controle.FabricaDeDao" factory-method="getDao">
+		<constructor-arg value="dao.impl.ClienteDAOImpl" />
+    </bean>
+    
+	
 
     <context:component-scan base-package="dao.impl" />
 
@@ -29,8 +49,8 @@
 
 <!--  Aqui  é  preciso  habilitar o  gerenciamento de  transação  de  forma  declarativa  e 
       informar   o   nome   da   classe    responsável   pelo   controle   de    transação: 
-      JpaTransactionManager.
- -->
+      JpaTransactionManager. -->
+      
     <tx:annotation-driven />
     
     <bean id="transactionManager"
