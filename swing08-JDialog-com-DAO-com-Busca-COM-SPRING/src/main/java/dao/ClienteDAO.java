@@ -33,6 +33,12 @@ public interface ClienteDAO extends DaoGenerico<Cliente, Long>
 	// Um método definido aqui, que não seja anotado, deverá ser
 	// implementado como final em ProdutoDAOImpl.
 	
+	long recuperaQtdPeloNome(String nome);
+	
+	List<Cliente> recuperaPeloNome(String nome, 
+			   int deslocamento, 
+			   int linhasPorPagina);
+	
 	/*
 	public long inclui(Cliente umCliente); 
 

@@ -14,19 +14,26 @@ import excecao.ObjetoNaoEncontradoException;
 //@Service
 public class ClienteService
 {	
+	private ClienteDAO clienteDAO = null;
+
+	
 	@Autowired
-	private ClienteDAO clienteDAO;
+	public void setClienteDAO(ClienteDAO clienteDAO)
+	{	
+		this.clienteDAO = clienteDAO;
+	}
 	
 	@Transactional
 	public long inclui(Cliente umCliente) 
-	{	return clienteDAO.inclui(umCliente);
+	{	return clienteDAO.inclui(umCliente).getNumero();
 	}
 
 	@Transactional
 	public void altera(Cliente umCliente)
 		throws ClienteNaoEncontradoException
 	{	try
-		{	clienteDAO.altera(umCliente);
+		{	clienteDAO.getPorId(umCliente.getNumero());
+			clienteDAO.altera(umCliente);
 		} 
 		catch(ObjetoNaoEncontradoException e)
 		{	throw new ClienteNaoEncontradoException("Cliente não encontrado");
@@ -38,7 +45,10 @@ public class ClienteService
 		throws ClienteNaoEncontradoException
 	{	try
 		{	
-			clienteDAO.exclui(umCliente.getNumero());
+			System.out.println("oi");
+			Cliente cliente = clienteDAO.recuperaUmCliente(umCliente.getNumero());
+			System.out.println(cliente);
+			clienteDAO.exclui(cliente);
 		} 
 		catch(ObjetoNaoEncontradoException e)
 		{	throw new ClienteNaoEncontradoException("Cliente não encontrado");
@@ -56,7 +66,7 @@ public class ClienteService
 	}
 
 	public List<Cliente> recuperaClientes()
-	{	return clienteDAO.recuperaClientes();
+	{	return clienteDAO.recuperaListaDeClientes();
 	}
 
 	public long recuperaQtdPeloNome(String nome) 

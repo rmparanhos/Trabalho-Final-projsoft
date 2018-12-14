@@ -16,7 +16,7 @@ import dao.ClienteDAO;
 import excecao.ObjetoNaoEncontradoException;
 
 @Repository
-public class ClienteDAOImpl extends JPADaoGenerico<Cliente, Long> implements ClienteDAO 
+public abstract class ClienteDAOImpl extends JPADaoGenerico<Cliente, Long> implements ClienteDAO 
 {	
     public ClienteDAOImpl()
     { 	super(Cliente.class); 
@@ -115,22 +115,29 @@ public class ClienteDAOImpl extends JPADaoGenerico<Cliente, Long> implements Cli
 
 		return clientes;
 	}*/
-
-	@Override
-	public Cliente recuperaUmCliente(long numero) throws ObjetoNaoEncontradoException {
-		// TODO Auto-generated method stub
-		return null;
+    
+    public final long recuperaQtdPeloNome(String nome) 
+	{	
+		long qtd = (Long) em.createQuery("select count(c) from Cliente c where c.nome like :nome")
+						    .setParameter("nome", nome.toUpperCase())
+							.getSingleResult();
+		return qtd;
 	}
+    
+    @SuppressWarnings("unchecked")
+	public final List<Cliente> recuperaPeloNome(String nome, 
+            							  int deslocamento, 
+            							  int linhasPorPagina)
+	{	
+		List<Cliente> clientes = em
+			.createQuery("select c from Cliente c "
+					   + "where c.nome like :nome order by c.nome asc")
+			.setParameter("nome", nome.toUpperCase())
+			.setFirstResult(deslocamento)
+			.setMaxResults(linhasPorPagina)
+			.getResultList();
 
-	@Override
-	public List<Cliente> recuperaListaDeClientes() {
-		// TODO Auto-generated method stub
-		return null;
+		return clientes;
 	}
-
-	@Override
-	public Cliente recuperaPrimeiroCliente() throws ObjetoNaoEncontradoException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }

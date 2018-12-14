@@ -5,6 +5,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+
+
+@NamedQueries(
+		{	
+			@NamedQuery
+			(	name = "Cliente.recuperaUmCliente",
+				query = "select c from Cliente c order by c.nome asc"
+			)
+		})
+
 
 @Entity
 @Table(name="CLIENTE2")
