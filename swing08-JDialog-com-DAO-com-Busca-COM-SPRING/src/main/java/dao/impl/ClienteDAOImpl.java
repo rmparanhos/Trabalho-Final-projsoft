@@ -1,19 +1,11 @@
 package dao.impl;
                         
-import java.util.List; 
-						
-import javax.persistence.EntityManager;
-import javax.persistence.LockModeType;
-import javax.persistence.PersistenceContext;
-
-import modelo.Cliente;
-
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import dao.ClienteDAO;
-
-import excecao.ObjetoNaoEncontradoException;
+import modelo.Cliente;
 
 @Repository
 public abstract class ClienteDAOImpl extends JPADaoGenerico<Cliente, Long> implements ClienteDAO 
@@ -21,6 +13,30 @@ public abstract class ClienteDAOImpl extends JPADaoGenerico<Cliente, Long> imple
     public ClienteDAOImpl()
     { 	super(Cliente.class); 
     }
+    
+    public final long recuperaQtdPeloNome(String nome) 
+   	{	
+   		long qtd = (Long) em.createQuery("select count(c) from Cliente c where c.nome like :nome")
+   						    .setParameter("nome", nome.toUpperCase())
+   							.getSingleResult();
+   		return qtd;
+   	}
+       
+       @SuppressWarnings("unchecked")
+   	public final List<Cliente> recuperaPeloNome(String nome, 
+               							  int deslocamento, 
+               							  int linhasPorPagina)
+   	{	
+   		List<Cliente> clientes = em
+   			.createQuery("select c from Cliente c "
+   					   + "where c.nome like :nome order by c.nome asc")
+   			.setParameter("nome", nome.toUpperCase())
+   			.setFirstResult(deslocamento)
+   			.setMaxResults(linhasPorPagina)
+   			.getResultList();
+
+   		return clientes;
+   	}
 	/*
 	@PersistenceContext
 	private EntityManager em;
@@ -116,28 +132,5 @@ public abstract class ClienteDAOImpl extends JPADaoGenerico<Cliente, Long> imple
 		return clientes;
 	}*/
     
-    public final long recuperaQtdPeloNome(String nome) 
-	{	
-		long qtd = (Long) em.createQuery("select count(c) from Cliente c where c.nome like :nome")
-						    .setParameter("nome", nome.toUpperCase())
-							.getSingleResult();
-		return qtd;
-	}
-    
-    @SuppressWarnings("unchecked")
-	public final List<Cliente> recuperaPeloNome(String nome, 
-            							  int deslocamento, 
-            							  int linhasPorPagina)
-	{	
-		List<Cliente> clientes = em
-			.createQuery("select c from Cliente c "
-					   + "where c.nome like :nome order by c.nome asc")
-			.setParameter("nome", nome.toUpperCase())
-			.setFirstResult(deslocamento)
-			.setMaxResults(linhasPorPagina)
-			.getResultList();
-
-		return clientes;
-	}
 	
 }

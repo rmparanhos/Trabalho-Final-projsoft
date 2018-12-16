@@ -13,19 +13,28 @@ import modelo.Conta;
 //@Service
 public class ContaService
 {	
+	private ContaDAO contaDAO = null;
+	
 	@Autowired
-	private ContaDAO contaDAO;
+	public void setContaDAO(ContaDAO contaDAO)
+	{	
+		this.contaDAO = contaDAO;
+	}
 	
 	@Transactional
-	public long inclui(Conta umCliente) 
-	{	return contaDAO.inclui(umCliente);
+	public long inclui(Conta umaConta) 
+	{	
+		//return contaDAO.inclui(umaConta);
+		return contaDAO.inclui(umaConta).getId();
 	}
 
 	@Transactional
 	public void altera(Conta umaConta)
 		throws ContaNaoEncontradaException
 	{	try
-		{	contaDAO.altera(umaConta);
+		{	
+			contaDAO.getPorId(umaConta.getId());
+			contaDAO.altera(umaConta);
 		} 
 		catch(ObjetoNaoEncontradoException e)
 		{	throw new ContaNaoEncontradaException("Conta não encontrada");
@@ -37,7 +46,9 @@ public class ContaService
 		throws ContaNaoEncontradaException
 	{	try
 		{	
-			contaDAO.exclui(umaConta.getId());
+			//contaDAO.exclui(umaConta.getId());
+			Conta conta = contaDAO.recuperaUmaConta(umaConta.getId());
+			contaDAO.exclui(conta);
 		} 
 		catch(ObjetoNaoEncontradoException e)
 		{	throw new ContaNaoEncontradaException("Conta não encontrada");
@@ -55,7 +66,7 @@ public class ContaService
 	}
 
 	public List<Conta> recuperaContas()
-	{	return contaDAO.recuperaContas();
+	{	return contaDAO.recuperaListaDeContas();
 	}
 
 	public long recuperaQtdPeloNumero(String numero) 

@@ -62,6 +62,7 @@ public class DialogConta extends JDialog implements ActionListener
 	private Cliente umCliente;
 	private JTextField dataAberturaTextField;
 	private JTextField clienteTextField;
+	private JTextField clienteIdTextField;
 	private JButton cancelarButton;
 	
 	public void designaContaAFrame(Conta umaConta)
@@ -83,7 +84,7 @@ public class DialogConta extends JDialog implements ActionListener
 		numeroTextField.setText("");
 		dataAberturaTextField.setText("");
 		clienteTextField.setText(umCliente.getNome());
-		
+		clienteIdTextField.setText(umCliente.getNumero().toString());
 		this.novo();
 		
 	}
@@ -183,6 +184,17 @@ public class DialogConta extends JDialog implements ActionListener
 		clienteTextField.setBounds(138, 144, 278, 20);
 		panel.add(clienteTextField);
 		
+		JLabel clienteIdLabel = new JLabel("ID Cliente");
+		clienteIdLabel.setBounds(50, 176, 70, 20);
+		panel.add(clienteIdLabel);
+		
+		clienteIdTextField = new JTextField();
+		clienteLabel.setLabelFor(clienteIdTextField);
+		clienteIdTextField.setColumns(10);
+		clienteIdTextField.setBackground(Color.WHITE);
+		clienteIdTextField.setBounds(138, 175, 278, 20);
+		panel.add(clienteIdTextField);
+		
 		dataAbrMensagem = new JLabel("");
 		dataAbrMensagem.setForeground(Color.RED);
 		dataAbrMensagem.setFont(new Font("Tahoma", Font.PLAIN, 9));
@@ -255,7 +267,7 @@ public class DialogConta extends JDialog implements ActionListener
 				umaConta.setDataAbr(dataAberturaTextField.getText());
 				try
 				{
-				umaConta.setCliente(clienteService.recuperaUmCliente(Long.parseLong(clienteTextField.getText())));
+				umaConta.setCliente(clienteService.recuperaUmCliente(Long.parseLong(clienteIdTextField.getText())));
 				}
 				catch(ClienteNaoEncontradoException e2)
 				{
@@ -369,7 +381,7 @@ public class DialogConta extends JDialog implements ActionListener
 		numeroTextField.setEnabled(true);
 		dataAberturaTextField.setEnabled(true);
 		clienteTextField.setEnabled(false);
-		
+		clienteIdTextField.setEnabled(false);
 		
 		numeroTextField.setText("");
 		dataAberturaTextField.setText("");
@@ -391,6 +403,7 @@ public class DialogConta extends JDialog implements ActionListener
 		numeroTextField.setEnabled(false);
 		dataAberturaTextField.setEnabled(false);
 		clienteTextField.setEnabled(false);
+		clienteIdTextField.setEnabled(false);
 		
 		novoButton.setEnabled(true);
 		cadastrarButton.setEnabled(false);
@@ -407,6 +420,7 @@ public class DialogConta extends JDialog implements ActionListener
 		numeroTextField.setEnabled(true);
 		dataAberturaTextField.setEnabled(true);
 		clienteTextField.setEnabled(false);
+		clienteIdTextField.setEnabled(false);
 		
 		novoButton.setEnabled(false);
 		cadastrarButton.setEnabled(false);
@@ -423,7 +437,8 @@ public class DialogConta extends JDialog implements ActionListener
 		numeroTextField.setEnabled(false);
 		dataAberturaTextField.setEnabled(false);
 		clienteTextField.setEnabled(false);
-
+		clienteIdTextField.setEnabled(false);
+		
 		novoButton.setEnabled(true);
 		cadastrarButton.setEnabled(false);
 		editarButton.setEnabled(false);
@@ -439,6 +454,7 @@ public class DialogConta extends JDialog implements ActionListener
 		numeroTextField.setEnabled(false);
 		dataAberturaTextField.setEnabled(false);
 		clienteTextField.setEnabled(false);
+		clienteIdTextField.setEnabled(false);
 		
 		novoButton.setEnabled(true);
 		cadastrarButton.setEnabled(false);

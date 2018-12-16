@@ -1,15 +1,12 @@
 package dao;
 
 import java.util.List;
-import java.util.Set;
 
-import anotacao.RecuperaConjunto;
 import anotacao.RecuperaLista;
 import anotacao.RecuperaObjeto;
 import anotacao.RecuperaUltimoOuPrimeiro;
-import modelo.Cliente;
-
 import excecao.ObjetoNaoEncontradoException;
+import modelo.Cliente;
 
 public interface ClienteDAO extends DaoGenerico<Cliente, Long>
 {	

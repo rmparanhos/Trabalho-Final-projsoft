@@ -2,20 +2,42 @@ package dao.impl;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.LockModeType;
-import javax.persistence.PersistenceContext;
-
-import modelo.Conta;
-
 import org.springframework.stereotype.Repository;
 
 import dao.ContaDAO;
-import excecao.ObjetoNaoEncontradoException;
+import modelo.Conta;
 
 @Repository
-public class ContaDAOImpl implements ContaDAO
+public abstract class ContaDAOImpl extends JPADaoGenerico<Conta, Long> implements ContaDAO
 {	
+	public ContaDAOImpl()
+    { 	super(Conta.class); 
+    }
+    
+	public final long recuperaQtdPeloNumero(String numero) 
+	{	
+		long qtd = (Long) em.createQuery("select count(c) from Conta c where c.numero like :numero")
+						    .setParameter("numero", numero)
+							.getSingleResult();
+		return qtd;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public final List<Conta> recuperaPeloNumero(String numero, 
+            							  int deslocamento, 
+            							  int linhasPorPagina)
+	{	
+		List<Conta> contas = em
+			.createQuery("select c from Conta c "
+					   + "where c.numero like :numero order by c.numero asc")
+			.setParameter("numero", numero)
+			.setFirstResult(deslocamento)
+			.setMaxResults(linhasPorPagina)
+			.getResultList();
+
+		return contas;
+	}
+	/*
 	@PersistenceContext
 	private EntityManager em;
 
@@ -108,5 +130,5 @@ public class ContaDAOImpl implements ContaDAO
 			.getResultList();
 
 		return contas;
-	}
+	}*/
 }
