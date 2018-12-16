@@ -17,7 +17,6 @@ public class Cliente
 	
 	public Cliente(String nome, String dataNasc) 
 	{
-		super();
 		this.nome = nome;
 		this.dataNasc = dataNasc;
 		

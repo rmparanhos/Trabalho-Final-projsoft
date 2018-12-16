@@ -12,13 +12,10 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
-import modelo.Cliente;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import servico.ClienteService;
 import excecao.ClienteNaoEncontradoException;
+import modelo.Cliente;
+import servico.ClienteService;
+import servico.controle.FabricaDeServico;
 
 // Essa classe tem os seguintes métodos:
 // - getTableCellRendererComponent() - Método que renderiza o botão
@@ -33,15 +30,9 @@ public class ButtonColumn extends AbstractCellEditor implements
 	private DialogTabelaClienteFF dialogTabelaCliente;
 	private DialogClienteFF dialogCliente;
 	private DialogConta dialogConta;
-	private static ClienteService clienteService;
+	private static ClienteService clienteService = FabricaDeServico.getServico(ClienteService.class);
 	
-    static
-    {
-    	@SuppressWarnings("resource")
-		ApplicationContext fabrica = new ClassPathXmlApplicationContext("beans-jpa.xml");
-
-    	clienteService = (ClienteService)fabrica.getBean ("clienteService");
-    }
+    
 
 	public ButtonColumn(JTable table, int coluna, 
 			            DialogTabelaClienteFF dialogTabelaCliente, 

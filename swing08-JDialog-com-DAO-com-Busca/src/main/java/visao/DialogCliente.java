@@ -22,8 +22,8 @@ import javax.swing.SwingConstants;
 
 import modelo.Cliente;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+//import org.springframework.context.ApplicationContext;
+//import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import servico.ClienteService;
 import excecao.ClienteNaoEncontradoException;

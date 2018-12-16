@@ -2,18 +2,29 @@ package servico;
 
 import java.util.List;
 
+import excecao.ClienteNaoEncontradoException;
 import modelo.Cliente;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-
-import dao.ClienteDAO;
-import excecao.ClienteNaoEncontradoException;
-import excecao.ObjetoNaoEncontradoException;
-
 //@Service
-public class ClienteService
+//public class ClienteService
+public interface ClienteService
 {	
+	
+	long inclui(Cliente umCliente); 
+	
+	void altera(Cliente umCliente) throws ClienteNaoEncontradoException;
+	
+	void exclui(long numero) throws ClienteNaoEncontradoException;
+	
+	Cliente recuperaUmCliente(long numero) throws ClienteNaoEncontradoException;
+	
+	List<Cliente> recuperaClientes();
+	
+	long recuperaQtdPeloNome(String nome); 
+	
+	List<Cliente> recuperaPeloNome(String nome, int deslocamento, int linhasPorPagina); 
+	
+	/*
 	@Autowired
 	private ClienteDAO clienteDAO;
 	
@@ -69,5 +80,5 @@ public class ClienteService
 		List<Cliente> clientes = clienteDAO.recuperaPeloNome(nome + "%", deslocamento, linhasPorPagina);
 
 		return clientes;
-	}
+	}*/
 }

@@ -15,26 +15,19 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import excecao.ClienteNaoEncontradoException;
 import modelo.Cliente;
 import servico.ClienteService;
+import servico.controle.FabricaDeServico;
 
 public class DialogClienteFF extends JDialog implements ActionListener 
 {
 	private static final long serialVersionUID = 1L;
 
-	private static ClienteService clienteService;
 	
-    static
-    {
-    	@SuppressWarnings("resource")
-		ApplicationContext fabrica = new ClassPathXmlApplicationContext("beans-jpa.xml");
+	private static ClienteService clienteService = FabricaDeServico.getServico(ClienteService.class);
+	
 
-    	clienteService = (ClienteService)fabrica.getBean ("clienteService");
-    }
 	
 	private JButton novoButton;
 	private JButton cadastrarButton;
@@ -175,9 +168,10 @@ public class DialogClienteFF extends JDialog implements ActionListener
 				umCliente = new Cliente();
 				umCliente.setNome(nomeTextField.getText());
 				umCliente.setDataNasc(dataNascTextField.getText().toUpperCase());
-
+				System.out.println(umCliente);
+				System.out.println("\nDentro do Principal. Vai chamar clienteService.inclui");
 				clienteService.inclui(umCliente);
-				
+				System.out.println("\nDentro do Principal. Chamou clienteService.inclui");
 				salvo();
 				
 				JOptionPane.showMessageDialog(this, "Cliente cadastrado com sucesso", "", 
@@ -219,7 +213,7 @@ public class DialogClienteFF extends JDialog implements ActionListener
 		{
 			try 
 			{
-				clienteService.exclui(umCliente);
+				clienteService.exclui(umCliente.getNumero());
 
 				removido();
 				

@@ -6,13 +6,9 @@ import java.util.Map;
 
 import javax.swing.table.AbstractTableModel;
 
-import modelo.Cliente;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import servico.ClienteService;
 import excecao.ClienteNaoEncontradoException;
+import modelo.Cliente;
+import servico.ClienteService;
 
 public class ClienteModel extends AbstractTableModel 
 {
@@ -33,10 +29,10 @@ public class ClienteModel extends AbstractTableModel
 	
     static
     {
-    	@SuppressWarnings("resource")
-		ApplicationContext fabrica = new ClassPathXmlApplicationContext("beans-jpa.xml");
+//    	@SuppressWarnings("resource")
+//		ApplicationContext fabrica = new ClassPathXmlApplicationContext("beans-jpa.xml");
 
-    	clienteService = (ClienteService)fabrica.getBean ("clienteService");
+  //  	clienteService = (ClienteService)fabrica.getBean ("clienteService");
     }
 
     private Map<Integer, Cliente> cache;

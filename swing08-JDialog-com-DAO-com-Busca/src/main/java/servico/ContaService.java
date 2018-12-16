@@ -2,17 +2,28 @@ package servico;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-
-import dao.ContaDAO;
 import excecao.ContaNaoEncontradaException;
-import excecao.ObjetoNaoEncontradoException;
 import modelo.Conta;
 
 //@Service
-public class ContaService
+//public class ContaService
+public interface ContaService
 {	
+	
+	long inclui(Conta umConta); 
+	
+	void altera(Conta umConta) throws ContaNaoEncontradaException;
+	
+	void exclui(long id) throws ContaNaoEncontradaException;
+	
+	Conta recuperaUmaConta(long id) throws ContaNaoEncontradaException;
+	
+	List<Conta> recuperaContas();
+	
+	long recuperaQtdPeloNumero(String numero); 
+	
+	List<Conta> recuperaPeloNumero(String numero, int deslocamento, int linhasPorPagina);
+	/*
 	@Autowired
 	private ContaDAO contaDAO;
 	
@@ -68,5 +79,5 @@ public class ContaService
 		List<Conta> contas = contaDAO.recuperaPeloNumero(numero + "%", deslocamento, linhasPorPagina);
 
 		return contas;
-	}
+	}*/
 }

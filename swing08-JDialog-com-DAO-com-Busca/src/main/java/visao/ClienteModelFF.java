@@ -6,13 +6,10 @@ import java.util.Map;
 
 import javax.swing.table.AbstractTableModel;
 
-import modelo.Cliente;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import servico.ClienteService;
 import excecao.ClienteNaoEncontradoException;
+import modelo.Cliente;
+import servico.ClienteService;
+import servico.controle.FabricaDeServico;
 
 public class ClienteModelFF extends AbstractTableModel 
 {
@@ -25,15 +22,7 @@ public class ClienteModelFF extends AbstractTableModel
 	
     private final static int NUMERO_DE_LINHAS_POR_PAGINA = 6;
 	
-	private static ClienteService clienteService;
-	
-    static
-    {
-    	@SuppressWarnings("resource")
-		ApplicationContext fabrica = new ClassPathXmlApplicationContext("beans-jpa.xml");
-
-    	clienteService = (ClienteService)fabrica.getBean ("clienteService");
-    }
+	private static ClienteService clienteService = FabricaDeServico.getServico(ClienteService.class);;
 
     private Map<Integer, Cliente> cache;
     private int rowIndexAnterior = 0;
