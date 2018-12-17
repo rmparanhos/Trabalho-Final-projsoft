@@ -62,9 +62,30 @@
      criar um objeto entity manager factory no container IoC. É preciso especificar o  nome
      da unidade de persistência definida no arquivo de configuração da JPA.  -->
 
-    <bean id="entityManagerFactory"
+<!--     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="exercicio" />
-    </bean>
+    </bean> -->
 
+	<bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="exercicio" />
+        <property name="packagesToScan" value="modelo" />
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />			
+				<property name="showSql" value="true" />
+			</bean>
+		</property>
+    </bean>
+    
+    <bean id="dataSource" 
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://bdserver.ic.uff.br:3306/tf2018" />
+        <property name="username" value="aluno" />
+        <property name="password" value="banco@dados17" />
+    </bean>
+    
 </beans>
