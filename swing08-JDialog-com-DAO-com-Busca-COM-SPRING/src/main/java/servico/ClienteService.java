@@ -7,6 +7,7 @@ import modelo.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import anotacao.ConstraintViolada;
 import dao.ClienteDAO;
 import excecao.ClienteNaoEncontradoException;
 import excecao.ObjetoNaoEncontradoException;
@@ -39,7 +40,7 @@ public class ClienteService
 		{	throw new ClienteNaoEncontradoException("Cliente não encontrado");
 		}
 	}
-
+	
 	@Transactional
 	public void exclui(Cliente umCliente) 
 		throws ClienteNaoEncontradoException

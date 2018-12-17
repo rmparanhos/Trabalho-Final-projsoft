@@ -8,6 +8,8 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
+import anotacao.ExcecaoDeAplicacao;
+
 @Aspect
 public class AspectoParaLogDeErros 
 {
@@ -29,6 +31,7 @@ public class AspectoParaLogDeErros
 		}
 		catch(Throwable throwable)
 		{	
+			if(!throwable.getClass().isAnnotationPresent(ExcecaoDeAplicacao.class)){
 			String metodo = joinPoint.getSignature().getName();
 	    	    	
 	    	String mensagem = (throwable.getMessage() != null ? throwable.getMessage() : "");
@@ -53,7 +56,7 @@ public class AspectoParaLogDeErros
 					     "   Metodo: " + metodo + "\n" + 
 					     "   Mensagem: " + mensagem + "\n" + 
 					     "   Stack Trace: " + stackTrace);
-	    	
+			}
 	    	throw throwable;
 		}
 	}

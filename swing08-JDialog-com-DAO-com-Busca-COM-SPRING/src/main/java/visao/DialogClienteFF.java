@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import excecao.ClienteComContasException;
 import excecao.ClienteNaoEncontradoException;
 import modelo.Cliente;
 import servico.ClienteService;
@@ -59,8 +60,8 @@ public class DialogClienteFF extends JDialog implements ActionListener
 		this.umCliente = umCliente;
 		
 		nomeTextField.setText(umCliente.getNome());
-		//dataNascTextField.setText(umCliente.getNasc());
-		
+		dataNascTextField.setText(umCliente.getDataNasc());
+				
 		nomeMensagem.setText("");
 		dataNascMensagem.setText("");
 		
@@ -231,6 +232,13 @@ public class DialogClienteFF extends JDialog implements ActionListener
 				novo();
 				
 				JOptionPane.showMessageDialog(this, "Cliente não encontrado", "", 
+					JOptionPane.ERROR_MESSAGE);
+			}
+			catch (ClienteComContasException e2) 
+			{
+				novo();
+				
+				JOptionPane.showMessageDialog(this, "Cliente ja possui contas!!", "", 
 					JOptionPane.ERROR_MESSAGE);
 			}
 		}

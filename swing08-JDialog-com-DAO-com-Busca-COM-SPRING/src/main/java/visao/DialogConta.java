@@ -185,7 +185,7 @@ public class DialogConta extends JDialog implements ActionListener
 		panel.add(clienteTextField);
 		
 		JLabel clienteIdLabel = new JLabel("ID Cliente");
-		clienteIdLabel.setBounds(50, 176, 70, 20);
+		clienteIdLabel.setBounds(74, 176, 53, 20);
 		panel.add(clienteIdLabel);
 		
 		clienteIdTextField = new JTextField();

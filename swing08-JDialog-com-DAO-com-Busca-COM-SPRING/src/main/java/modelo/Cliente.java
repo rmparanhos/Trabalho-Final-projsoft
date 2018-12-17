@@ -13,7 +13,7 @@ import javax.persistence.NamedQuery;
 		{	
 			@NamedQuery
 			(	name = "Cliente.recuperaUmCliente",
-				query = "select c from Cliente c where c.id = ?1"
+				query = "select c from Cliente c where c.numero = ?1"
 			)
 		})
 
