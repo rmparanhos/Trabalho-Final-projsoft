@@ -52,7 +52,7 @@ public class DialogClienteFF extends JDialog implements ActionListener
 		this.umCliente = umCliente;
 		
 		nomeTextField.setText(umCliente.getNome());
-		//dataNascTextField.setText(umCliente.getNasc());
+		dataNascTextField.setText(umCliente.getDataNasc());
 		
 		nomeMensagem.setText("");
 		dataNascMensagem.setText("");
